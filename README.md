@@ -10,9 +10,9 @@ Version: 0.1-SNAPSHOT
 
 <!--
 TODO: Make these visible
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/devlinjunker/example.cii)](https://github.com/devlinjunker/example.cii/releases)
+[![GitHub priority issues](https://img.shields.io/github/issues/devlinjunker/dev.junk.cron/-priority?color=red&label=priority%20issues)](https://github.com/devlinjunker/dev.junk.cron/issues?q=is%3Aopen+is%3Aissue+label%3A-priority)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/devlinjunker/dev.junk.cron)](https://github.com/devlinjunker/dev.junk.cron/releases)
 [![CII Best Practices Summary](https://img.shields.io/cii/summary/4558?label=core-infrastructure)](https://bestpractices.coreinfrastructure.org/en/projects/4558)  
-[![GitHub priority issues](https://img.shields.io/github/issues/devlinjunker/example.cii/-priority?color=red&label=priority%20issues)](https://github.com/devlinjunker/example.cii/issues?q=is%3Aopen+is%3Aissue+label%3A-priority)
 -->
 
 ## Intro
@@ -83,7 +83,7 @@ See full details in the Github Semver Project [wiki](https://github.com/devlinju
 [Contributing Guide]: CONTRIBUTING.md
 [Git Hooks]: scripts/hooks#git-hook-scripts
 [Github Workflows]: .github/workflows#github-workflows
-[Wiki]: https://github.com/devlinjunker/example.cii/wiki
+[Wiki]: https://github.com/devlinjunker/dev.junk.cron/wiki
 [FAQ]: https://github.com/devlinjunker/dev.junk.cron/wiki/!-FAQ
 [README Pages]: https://github.com/devlinjunker/dev.junk.cron/wiki/.README-(synced)
 [Core Infrastructure Initiative Criteria]: https://bestpractices.coreinfrastructure.org/en/criteria/0

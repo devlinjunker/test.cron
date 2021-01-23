@@ -4,7 +4,7 @@ Thanks for helping out!
 
 
 ## Reporting Issues
-The best way to [report an issue is through Github](https://github.com/devlinjunker/example.cii/issues/new/choose). The owners of the repo should get an email notification whenever a new issue is created.
+The best way to [report an issue is through Github](https://github.com/devlinjunker/dev.junk.cron/issues/new/choose). The owners of the repo should get an email notification whenever a new issue is created.
 
 
 ## Development 
@@ -111,7 +111,7 @@ Run a single test with:
 qa/runner.sh --file <path to file>
 ```
 
-See the [READMEs in `qa/` directory](https://github.com/devlinjunker/example.cii/tree/develop/qa)
+See the [READMEs in `qa/` directory](https://github.com/devlinjunker/dev.junk.cron/tree/develop/qa)
 
 
 #### Release 
