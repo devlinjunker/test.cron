@@ -4,7 +4,7 @@ mkdir wiki
 
 # create `.README` file with Table of Contents to link to each
 {
-    echo "These pages are copied from from .md files in the source code. These are defined in the [collect-wiki.sh script file](https://github.com/devlinjunker/example.cii/blob/develop/scripts/workflows/collect-wiki.sh)"
+    echo "These pages are copied from from .md files in the source code. These are defined in the [collect-wiki.sh script file](https://github.com/devlinjunker/dev.junk.cron/blob/develop/scripts/workflows/collect-wiki.sh)"
     echo ""
     echo "Each page name that is synced will have following name syntax: \`_<file_name>_README\` so it will not visible be in the 'Page List' on the right and will only be available linked below. These pages (including this) **should not be modified** because they will be overwritten on each merge to develop."
     echo ""

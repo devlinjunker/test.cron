@@ -1,50 +1,43 @@
 ---
-Version: 0.4-SNAPSHOT
+Version: 0.1-SNAPSHOT
 ---
 
-# Example - CII 100%
+# Cron Job Repository
 <!-- Find More Badges Here: https://shields.io/ -->
 
-[![GitHub License](https://img.shields.io/github/license/devlinjunker/example.cii?color=blue)](https://github.com/devlinjunker/example.cii/blob/develop/LICENSE)  
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/devlinjunker/example.cii)](https://github.com/devlinjunker/example.cii/releases)
-[![GitHub last commit](https://img.shields.io/github/last-commit/devlinjunker/example.cii)](https://github.com/devlinjunker/example.cii/commits/main)  
-[![CII Best Practices Summary](https://img.shields.io/cii/summary/4558?label=core-infrastructure)](https://bestpractices.coreinfrastructure.org/en/projects/4558)  
-[![GitHub issues](https://img.shields.io/github/issues/devlinjunker/example.cii)](https://github.com/devlinjunker/example.cii/issues)
-[![GitHub priority issues](https://img.shields.io/github/issues/devlinjunker/example.cii/-priority?color=red&label=priority%20issues)](https://github.com/devlinjunker/example.cii/issues?q=is%3Aopen+is%3Aissue+label%3A-priority)
+[![GitHub License](https://img.shields.io/github/license/devlinjunker/dev.junk.cron?color=blue)](https://github.com/devlinjunker/dev.junk.cron/blob/develop/LICENSE) [![GitHub last commit](https://img.shields.io/github/last-commit/devlinjunker/dev.junk.cron)](https://github.com/devlinjunker/dev.junk.cron/commits/main)
+[![GitHub issues](https://img.shields.io/github/issues/devlinjunker/dev.junk.cron)](https://github.com/devlinjunker/dev.junk.cron/issues)
 
+<!--
+TODO: Make these visible
+[![GitHub priority issues](https://img.shields.io/github/issues/devlinjunker/dev.junk.cron/-priority?color=red&label=priority%20issues)](https://github.com/devlinjunker/dev.junk.cron/issues?q=is%3Aopen+is%3Aissue+label%3A-priority)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/devlinjunker/dev.junk.cron)](https://github.com/devlinjunker/dev.junk.cron/releases)
+[![CII Best Practices Summary](https://img.shields.io/cii/summary/4558?label=core-infrastructure)](https://bestpractices.coreinfrastructure.org/en/projects/4558)  
+-->
 
 ## Intro
 <!-- Quick Description, could match Github repo description or have a little more info-->
 
-This is an example project with a goal of 100% passing [Core Infrastructure Initiative Criteria] status. It is based off of the [GitHub Semver Project] Template. 
+This is an repository for exploring and storing cron job shell scripts. 
 
-Contains the following improvements for passing status:
-- Automated Test Suite (for Bash Scripts)
-- Static Code Analysis (Linting)
-
-Also contains:
-- [PR Landmine Action]
+It is based off of the [CII 100% Example](https://github.com/devlinjunker/example.cii) to encourage Passing Status of the [Core Infrastructure Initiative Criteria]
 
 
 ## Dependencies/Frameworks
 <!-- List the frameworks, libraries, and tools the project uses: -->
 
-- [Bulldozer] - Github Application to Auto Squash and Merge feature PRs
+- [Bash] - For running Shell Scripts
 - [Git-mkver] - Binary that helps with determining next semantic version based on Git Tags
 - [BATS] - Automated Test Suite for Bash Scripts
 - [ShellCheck] - Linting Tool for Bash Scripts
+- [Bulldozer] - Github Application to Auto Squash and Merge feature PRs
 - [PR Landmine Action] - Mutation Testing Pull Requests
 
 ## Quick Setup/Run
 <!-- This section should try to quickly explain how to setup the project and start using it (server/app/demo/template) - ideally in list format -->
 
- - [ ] Review [Wiki]
-    - [FAQ]
-    - [README Pages]
- - [ ] Review documentation in [GitHub Semver Project]
- - [ ] Clone repo (with submodules)
-    - If forking to a new project, follow the [Steps for New Project] before adding new code
-
+ - TODO After we figure out how to setup/run scripts with cron jobs
+ 
 ### Add Code
  - [ ] Create branch matching style `<prefix>/<hyphenated-description>`
  - [ ] Add changes to branch
@@ -67,6 +60,7 @@ See full details in the Github Semver Project [wiki](https://github.com/devlinju
 - [Code of Conduct]
 - [Contributing Guide]
 - [Security Policy]
+<!--
 - [Wiki]
   - [FAQ]
   - [README Pages]
@@ -75,6 +69,7 @@ See full details in the Github Semver Project [wiki](https://github.com/devlinju
   - [BATS]
   - [ShellCheck]
   - [PR Landmine Action]
+-->
 
 ## Contributors
 
@@ -88,16 +83,14 @@ See full details in the Github Semver Project [wiki](https://github.com/devlinju
 [Contributing Guide]: CONTRIBUTING.md
 [Git Hooks]: scripts/hooks#git-hook-scripts
 [Github Workflows]: .github/workflows#github-workflows
-[Wiki]: https://github.com/devlinjunker/example.cii/wiki
-[FAQ]: https://github.com/devlinjunker/example.cii/wiki/!-FAQ
-[README Pages]: https://github.com/devlinjunker/example.cii/wiki/.README-(synced)
-[Steps for New Project]: https://github.com/devlinjunker/template.github.semver#steps-for-new-project
+[Wiki]: https://github.com/devlinjunker/dev.junk.cron/wiki
+[FAQ]: https://github.com/devlinjunker/dev.junk.cron/wiki/!-FAQ
+[README Pages]: https://github.com/devlinjunker/dev.junk.cron/wiki/.README-(synced)
 [Core Infrastructure Initiative Criteria]: https://bestpractices.coreinfrastructure.org/en/criteria/0
-[Bash]: https://tldp.org/LDP/abs/html/
 [Github Actions]: https://docs.github.com/en/free-pro-team@latest/actions
-[Bulldozer]: https://github.com/palantir/bulldozer
+[Bash]: https://tldp.org/LDP/abs/html/
 [Git-mkver]: https://idc101.github.io/git-mkver/
 [BATS]: https://bats-core.readthedocs.io/
 [ShellCheck]: https://www.shellcheck.net/
-[GitHub Semver Project]: https://github.com/devlinjunker/template.github.semver#intro
+[Bulldozer]: https://github.com/palantir/bulldozer
 [PR Landmine Action]: https://github.com/tylermurry/github-pr-landmine
