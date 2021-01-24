@@ -10,8 +10,18 @@
 # For sure don't need more than 2 years.. 
 # realistically we can try to make files smaller/less detail after 1 month
 
-## Get Directory of this Script so we can execute relative to its
+# Get Directory of this Script so we can execute relative to it
 DIR=$(pwd)$(dirname "${BASH_SOURCE[0]}" | sed s/^\.//)
+
+JQ_BIN="$DIR/../../lib/jq-"
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    JQ_BIN+="linux64"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    JQ_BIN+="osx-amd64"
+else
+    echo "Error: OS not supported ($OSTYPE)"
+    exit 1
+fi
 
 # TODO: Maybe use zippopotamus to get LAT/LONG
 # e.g. https://api.zippopotam.us/us/97202
@@ -29,17 +39,8 @@ get_image() {
 
 # Get forecast from 7timer forecast API and print to files
 get_weather() {
-    JQ_BIN="$DIR/../../lib/jq-"
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        JQ_BIN+="linux64"
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        JQ_BIN+="osx-amd64"
-    else
-        echo "Error: OS not supported ($OSTYPE)"
-        exit 1
-    fi
-
-    WEATHER=($(curl "$WEATHER_URL" | $JQ_BIN -c ".dataseries[] | { weather: .weather, tempmin: .temp2m.min, tempmax: .temp2m.max, date: .date }"))
+    # For bash, uses temporary files
+    IFS=" " read -r -a WEATHER <<< "$(curl "$WEATHER_URL" | $JQ_BIN -c ".dataseries[] | { weather: .weather, tempmin: .temp2m.min, tempmax: .temp2m.max, date: .date }")"
 
     echo "${WEATHER[@]}" > weather.json
 
@@ -53,39 +54,43 @@ get_weather() {
     done
 }
 
-# TODO: get_daylight?
+# TODO: get_daylight? to return daylight hours
 
 main() {
     # Create Weather Directory
     if [ ! -d "$DIR/../../weather" ]; then
         mkdir "$DIR/../../weather"
     fi
-    cd $DIR/../../weather
+
+    cd "$DIR/../../weather" || exit
 
     # Get Current Weather stuff
     CURRENT=$(date "+%Y%m%d.%H%M")
     if [ ! -d "$CURRENT" ]; then
-        mkdir $CURRENT
-        cd $CURRENT
+        mkdir "$CURRENT"
+        (
+        cd "$CURRENT" || exit
         
         get_image
-
         get_weather
-        cd ..
+        )
     fi
 
     # Add Image Link to imgs/ dir
     if [ ! -d imgs ]; then
         mkdir imgs
     fi
-    cd imgs
-    if [ ! -f $CURRENT.jpg ]; then
-        ln -s ../$CURRENT/geocolor.jpg $CURRENT.jpg
+   
+    (
+    cd imgs || exit
+    if [ ! -f "$CURRENT.jpg" ]; then
+        ln -s "../$CURRENT/geocolor.jpg" "$CURRENT.jpg"
     fi
-    cd ..
+    )
+    
 
     # TODO: Archive older than 1 month?
-    # Doesn't seem like compressing the image really helps..
+    # Doesn't seem like compressing the image with tar really helps..
     # Maybe we can make it smaller? less detail? run another jpg compression?
 }
 
