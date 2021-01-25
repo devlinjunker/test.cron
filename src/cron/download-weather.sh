@@ -12,10 +12,12 @@
 
 # Get Directory of this Script so we can execute relative to it
 DIR=$(dirname "${BASH_SOURCE[0]}")
-if [[ "$DIR" != *"$(pwd)"* ]]; then
-    DIR="$(pwd)${DIR//\./}"
+PWD=$(pwd)
+if [[ "$DIR" != *"$PWD"* ]]; then # prepend PWD if it is not in DIR
+    DIR="$PWD${DIR//\./}" # to make sure this is an absolute path
 fi
 
+# Locate JQ Version (based on OS)
 JQ_BIN="$DIR/../../lib/jq-"
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     JQ_BIN+="linux64"
@@ -42,7 +44,7 @@ get_image() {
 
 # Get forecast from 7timer forecast API and print to files
 get_weather() {
-    # For bash, uses temporary files
+    # Read array into $WEATHER
     IFS=" " read -r -a WEATHER <<< "$(curl "$WEATHER_URL" | $JQ_BIN -c ".dataseries[] | { weather: .weather, tempmin: .temp2m.min, tempmax: .temp2m.max, date: .date }")"
 
     echo "${WEATHER[@]}" > weather.json
@@ -60,7 +62,7 @@ get_weather() {
 # TODO: get_daylight? to return daylight hours
 
 main() {
-    # Create Weather Directory
+    # Create weather/ Directory
     if [ ! -d "$DIR/../../weather" ]; then
         mkdir "$DIR/../../weather"
     fi
