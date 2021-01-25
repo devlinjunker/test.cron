@@ -6,6 +6,8 @@ To View Cron Jobs type `crontab -l`
 
 To Edit Cron Jobs type `crontab -e`
 
+Logs on AWS AMI are found in `/var/log/cron`, this location is configured in `/etc/rsyslog.conf`
+
 ## Download Weather (download-weather.sh)
 Downloads a satellite image and the current forecast from online APIs
 
