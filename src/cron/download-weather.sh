@@ -11,7 +11,10 @@
 # realistically we can try to make files smaller/less detail after 1 month
 
 # Get Directory of this Script so we can execute relative to it
-DIR=$(pwd)$(dirname "${BASH_SOURCE[0]}" | sed s/^\.//)
+DIR=$(dirname "${BASH_SOURCE[0]}" | sed s/^\.//)
+if [[ "$DIR" != *"$(pwd)"* ]]; then
+    DIR="$(pwd)$DIR"
+fi
 
 JQ_BIN="$DIR/../../lib/jq-"
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
