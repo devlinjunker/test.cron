@@ -18,8 +18,6 @@ lint_scripts() {
 
     # shellcheck disable=SC2211,SC2046
     "$DIR"/../../lib/shellcheck*/shellcheck $(find "$DIR"/../../scripts/**/*.sh -name '*.sh')
-    # shellcheck disable=SC2211,SC2046
-    "$DIR"/../../lib/shellcheck*/shellcheck $(find "$DIR"/../../src/**/*.sh -name '*.sh')
 }
 
 
