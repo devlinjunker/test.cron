@@ -13,7 +13,7 @@
 # Get Directory of this Script so we can execute relative to it
 DIR=$(dirname "${BASH_SOURCE[0]}")
 PWD=$(pwd)
-if [[ "$DIR" != *"$PWD"* ]]; then # prepend PWD if it is not in DIR
+if [[ "$DIR" != *"$PWD"* ]] && ![[ "$DIR" =~ "^\/" ]]; then # prepend PWD if it is not in DIR
     DIR="$PWD${DIR//\./}" # to make sure this is an absolute path
 fi
 
