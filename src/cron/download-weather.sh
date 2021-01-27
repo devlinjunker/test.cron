@@ -10,10 +10,12 @@
 # For sure don't need more than 2 years.. 
 # realistically we can try to make files smaller/less detail after 1 month
 
+
+# TODO: This doesn't work if we type like `src/cron/download-weather.sh` (must include ./ )
 # Get Directory of this Script so we can execute relative to it
 DIR=$(dirname "${BASH_SOURCE[0]}")
 PWD=$(pwd)
-if [[ "$DIR" != *"$PWD"* ]] && ![[ "$DIR" =~ "^\/" ]]; then # prepend PWD if it is not in DIR
+if [[ "$DIR" != *"$PWD"* ]] && ! [[ "$DIR" =~ "^\/" ]]; then # prepend PWD if it is not in DIR
     DIR="$PWD${DIR//\./}" # to make sure this is an absolute path
 fi
 
@@ -45,7 +47,8 @@ get_image() {
 # Get forecast from 7timer forecast API and print to files
 get_weather() {
     # Read array into $WEATHER
-    IFS=" " read -r -a WEATHER <<< "$(curl "$WEATHER_URL" | $JQ_BIN -c ".dataseries[] | { weather: .weather, tempmin: .temp2m.min, tempmax: .temp2m.max, date: .date }")"
+    # shellcheck disable=SC2207
+    WEATHER=( $(curl "$WEATHER_URL" | $JQ_BIN -c '.dataseries[] | { weather: .weather, tempmin: .temp2m.min, tempmax: .temp2m.max, date: .date }') )
 
     echo "${WEATHER[@]}" > weather.json
 
@@ -59,7 +62,8 @@ get_weather() {
     done
 }
 
-# TODO: get_daylight? to return daylight hours
+# TODO: get_daylight? to return daylight hours for that day
+# seems like this depends on us creating a directory for each day (with 1 forecast, and multiple images)
 
 main() {
     # Create weather/ Directory
