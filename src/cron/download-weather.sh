@@ -12,11 +12,12 @@
 
 
 # TODO: This doesn't work if we type like `src/cron/download-weather.sh` (must include ./ )
+# works for ./download-weather.sh and /bin/bash ./download-weather.sh
 # Get Directory of this Script so we can execute relative to it
 DIR=$(dirname "${BASH_SOURCE[0]}")
 PWD=$(pwd)
-if [[ "$DIR" != *"$PWD"* ]] && ! [[ "$DIR" =~ "^\/" ]]; then # prepend PWD if it is not in DIR
-    DIR="$PWD${DIR//\./}" # to make sure this is an absolute path
+if [[ "$DIR" != *"$PWD"* ]] && ! [[ "$DIR" =~ "^\/" ]]; then # prepend PWD if it is not in DIR and not absolute path
+    DIR="$PWD/$(echo "$DIR" | sed s/^\\.\\/?// )" # to make sure this is becomes an absolute path
 fi
 
 # Locate JQ Version (based on OS)
@@ -39,14 +40,15 @@ IMG_URL="https://cdn.star.nesdis.noaa.gov/GOES17/ABI/SECTOR/np/GEOCOLOR/1800x108
 WEATHER_URL="http://www.7timer.info/bin/civillight.php?lon=$LONG&lat=$LAT&ac=0&unit=british&output=json&tzshift=0"
 
 
+# TODO: Rename to get_geocolor
 # Image is about 1.6MB, so 1GB after 660 images or so. 2 years at 1 photo a day
 get_image() {
+    # TODO: Should we "|| exit" these? with non-zero?
     curl $IMG_URL > "geocolor.jpg"
 }
 
 # Get forecast from 7timer forecast API and print to files
 get_weather() {
-    # Read array into $WEATHER
     # shellcheck disable=SC2207
     WEATHER=( $(curl "$WEATHER_URL" | $JQ_BIN -c '.dataseries[] | { weather: .weather, tempmin: .temp2m.min, tempmax: .temp2m.max, date: .date }') )
 
@@ -64,6 +66,9 @@ get_weather() {
 
 # TODO: get_daylight? to return daylight hours for that day
 # seems like this depends on us creating a directory for each day (with 1 forecast, and multiple images)
+
+
+# TODO: get_isobar? maybe just in get_image function?
 
 main() {
     # Create weather/ Directory

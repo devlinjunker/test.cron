@@ -4,9 +4,9 @@ load '../../../lib/bats-assert/load'
 
 SCRIPT_DIR="$BATS_TEST_DIRNAME"/../../../src/cron/
 
-TEST_PREFIX="download-image.sh -";
+TEST_PREFIX="download-weather.sh -";
 
-# Examples
+# Examples:
 # @test "$TEST_PREFIX should not.." {
 #     # function git() {
 #     #     echo "abc/test-name";
@@ -14,7 +14,7 @@ TEST_PREFIX="download-image.sh -";
 #     # export -f git
 
 
-#     run "$SCRIPT_DIR"/download-image.sh
+#     run "$SCRIPT_DIR"/download-weather.sh
 
 #     assert_failure
 # } 
@@ -26,19 +26,19 @@ TEST_PREFIX="download-image.sh -";
 #     # export -f git
 
 
-#     run "$SCRIPT_DIR"/download-image.sh
+#     run "$SCRIPT_DIR"/download-weather.sh
 
 #     assert_success
 # } 
 
-# @test "$TEST_PREFIX should create weather and imgs dir if not exist" {}
+# @test "$TEST_PREFIX should create weather/ and imgs/ dir if not exist" {}
 
-# @test "$TEST_PREFIX should create date dir" {}
+# @test "$TEST_PREFIX should create <date> dir" {}
 
-# @test "$TEST_PREFIX should NOT create date dir if exists" {}
+# @test "$TEST_PREFIX should NOT create <date> dir if exists" {}
 
 # @test "$TEST_PREFIX should create 7 files + json file (8 total) for forecast" {}
 
 # @test "$TEST_PREFIX should create image files for geocolor and isobar" {}
 
-# @test "$TEST_PREFIX should add new file to imgs/ dir" {}
+# @test "$TEST_PREFIX should add new file link to imgs/ dir" {}
