@@ -16,7 +16,7 @@
 # Get Directory of this Script so we can execute relative to it
 DIR=$(dirname "${BASH_SOURCE[0]}")
 PWD=$(pwd)
-if [[ "$DIR" != *"$PWD"* ]] && ! [[ "$DIR" =~ "^\/" ]]; then # prepend PWD if it is not in DIR and not absolute path
+if [[ "$DIR" != *"$PWD"* ]] && [[ "$DIR" != /* ]]; then # prepend PWD if it is not in DIR
     DIR="$PWD/$(echo "$DIR" | sed s/^\\.\\/?// )" # to make sure this is becomes an absolute path
 fi
 
