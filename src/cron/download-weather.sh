@@ -2,7 +2,7 @@
 #
 # Basic Shell Script to expirement with cron jobs
 #
-# Downloads North Pacific Satellite image from a URL
+# Downloads weather images from a URL
 # Also downloads the forecast from 7timer Weather Forecast API
 #
 # How often should this run? 8am, 12pm, 4pm, 8pm? 
@@ -10,13 +10,11 @@
 # For sure don't need more than 2 years.. 
 # realistically we can try to make files smaller/less detail after 1 month
 
-
-# TODO: This doesn't work if we type like `src/cron/download-weather.sh` (must include ./ )
-# works for ./download-weather.sh and /bin/bash ./download-weather.sh
+# works for `./download-weather.sh` and `/bin/bash ./download-weather.sh` and `/bin/bash /download-weather.sh`
 # Get Directory of this Script so we can execute relative to it
 DIR=$(dirname "${BASH_SOURCE[0]}")
 PWD=$(pwd)
-if [[ "$DIR" != *"$PWD"* ]] && [[ "$DIR" != /* ]]; then # prepend PWD if it is not in DIR
+if [[ "$DIR" != *"$PWD"* ]] && [[ "$DIR" != /* ]]; then # prepend PWD if it is not in DIR and DIR not absolute
     DIR="$PWD/$(echo "$DIR" | sed s/^\\.\\/?// )" # to make sure this is becomes an absolute path
 fi
 
@@ -40,13 +38,14 @@ IMG_URL="https://cdn.star.nesdis.noaa.gov/GOES17/ABI/SECTOR/np/GEOCOLOR/1800x108
 WEATHER_URL="http://www.7timer.info/bin/civillight.php?lon=$LONG&lat=$LAT&ac=0&unit=british&output=json&tzshift=0"
 
 
-# TODO: Rename to get_geocolor
-# Image is about 1.6MB, so 1GB after 660 images or so. 2 years at 1 photo a day
+# TODO: Rename to get_geocolor (or include other imgs)
+# Image is about 1.6MB = 1GB after 660 images or so ~ 2 years at 1 photo a day
 get_image() {
     # TODO: Should we "|| exit" these? with non-zero?
     curl $IMG_URL > "geocolor.jpg"
 }
 
+# TODO: This is only updated once a day it seems like, so don't need to download it more often
 # Get forecast from 7timer forecast API and print to files
 get_weather() {
     # shellcheck disable=SC2207
@@ -70,14 +69,17 @@ get_weather() {
 
 # TODO: get_isobar? maybe just in get_image function?
 
+WEATHER_DIR="$DIR/../../weather"
+
 main() {
     # Create weather/ Directory
-    if [ ! -d "$DIR/../../weather" ]; then
-        mkdir "$DIR/../../weather"
+    if [ ! -d "$WEATHER_DIR" ]; then
+        mkdir "$WEATHER_DIR"
     fi
 
-    cd "$DIR/../../weather" || exit
+    cd "$WEATHER_DIR" || exit
 
+    # TODO: Convert to Pacific
     # Get Current Weather stuff
     CURRENT=$(date "+%Y%m%d.%H%M")
     if [ ! -d "$CURRENT" ]; then

@@ -26,3 +26,6 @@ In UTC, this is: 16:00, 20:00, 00:00, 04:00
     - Runs jobs periodically
     - Assumes computer might be off, so checks once its back on
     - Is this for osx?
+- [ ] Anacron job to update aws with current home ip
+    - need to create script first (in https://github.com/devlinjunker/bash? Rename to `shell`)
+
