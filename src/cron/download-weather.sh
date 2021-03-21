@@ -34,16 +34,24 @@ fi
 LAT="45.50"
 LONG="-122.6"
 
-IMG_URL="https://cdn.star.nesdis.noaa.gov/GOES17/ABI/SECTOR/np/GEOCOLOR/1800x1080.jpg"
+SAT_IMG_URL="https://cdn.star.nesdis.noaa.gov/GOES17/ABI/SECTOR/np/GEOCOLOR/1800x1080.jpg"
 WEATHER_URL="http://www.7timer.info/bin/civillight.php?lon=$LONG&lat=$LAT&ac=0&unit=british&output=json&tzshift=0"
 
 
 # TODO: Rename to get_geocolor (or include other imgs)
 # Image is about 1.6MB = 1GB after 660 images or so ~ 2 years at 1 photo a day
-get_image() {
+get_sat_image() {
     # TODO: Should we "|| exit" these? with non-zero?
-    curl $IMG_URL > "geocolor.jpg"
+    curl $SAT_IMG_URL > "geocolor.jpg"
 }
+
+get_isobar() {
+    echo "TODO: curl $ISOBAR_IMG_URL > isobar.jpg" 
+}
+
+# TODO: ? maybe just in get_image function?
+# TODO: get_temperature?
+
 
 # TODO: This is only updated once a day it seems like, so don't need to download it more often
 # Get forecast from 7timer forecast API and print to files
@@ -66,9 +74,6 @@ get_weather() {
 # TODO: get_daylight? to return daylight hours for that day
 # seems like this depends on us creating a directory for each day (with 1 forecast, and multiple images)
 
-
-# TODO: get_isobar? maybe just in get_image function?
-
 WEATHER_DIR="$DIR/../../weather"
 
 main() {
@@ -87,7 +92,7 @@ main() {
         (
         cd "$CURRENT" || exit
         
-        get_image
+        get_sat_image
         get_weather
         )
     fi
@@ -99,13 +104,14 @@ main() {
    
     (
     cd imgs || exit
-    if [ ! -f "$CURRENT.jpg" ]; then
-        ln -s "../$CURRENT/geocolor.jpg" "$CURRENT.jpg"
+    if [ -f "geocolor.jpg" ]; then
+        rm geocolor.jpg;
     fi
+    ln -s "../$CURRENT/geocolor.jpg" "geocolor.jpg"
     )
     
 
-    # TODO: Archive older than 1 month?
+    # TODO: Archive/delete older than 1 month?
     # Doesn't seem like compressing the image with tar really helps..
     # Maybe we can make it smaller? less detail? run another jpg compression?
 }
