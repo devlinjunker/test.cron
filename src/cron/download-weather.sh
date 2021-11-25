@@ -105,10 +105,9 @@ main() {
    
     (
     cd imgs || exit
-    if [ -f "geocolor.jpg" ]; then
-        rm geocolor.jpg;
+    if [ ! -f "$CURRENT.jpg" ]; then
+    	ln -s "../$CURRENT/geocolor.jpg" "$CURRENT.jpg"
     fi
-    ln -s "../$CURRENT/geocolor.jpg" "geocolor.jpg"
     )
     
 
