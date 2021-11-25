@@ -42,7 +42,8 @@ WEATHER_URL="http://www.7timer.info/bin/civillight.php?lon=$LONG&lat=$LAT&ac=0&u
 # Image is about 1.6MB = 1GB after 660 images or so ~ 2 years at 1 photo a day
 get_sat_image() {
     # TODO: Should we "|| exit" these? with non-zero?
-    curl $SAT_IMG_URL > "geocolor.jpg"
+    # use -k to allow insecure connection (ignore/prevent errors due to invalid certs?)
+    curl -k $SAT_IMG_URL > "geocolor.jpg"
 }
 
 get_isobar() {
