@@ -16,8 +16,8 @@
 		$datetime = explode(".", $dir_arr[2]);
 		echo $datetime[0];
        		echo " @ ";
-		echo $datetime[1] % 1200;
-		echo " GMT"
+		echo $datetime[1]; // % 1200;
+		echo " GMT";
 	?>
 </h3>
 
@@ -62,13 +62,15 @@
 </table>
 
 <h3>Historical</h3>
+<div id="historic">
 <?php
 	foreach($dir_arr as $dir) {
 		if(preg_match("/\d+\.\d+/", $dir)) {
-			echo "<a href='$dir'>$dir</a></br>";
+			echo "<a id='$dir' href='$dir'>$dir</a></br>";
 		}
 	}
 ?>
+</div>
 
 </body>
 </html>
