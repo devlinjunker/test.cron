@@ -43,7 +43,7 @@ WEATHER_URL="http://www.7timer.info/bin/civillight.php?lon=$LONG&lat=$LAT&ac=0&u
 get_sat_image() {
     # TODO: Should we "|| exit" these? with non-zero?
     # use -k to allow insecure connection (ignore/prevent errors due to invalid certs?)
-    curl -k $SAT_IMG_URL > "geocolor.jpg"
+    curl -kL $SAT_IMG_URL > "geocolor.jpg"
 }
 
 get_isobar() {
@@ -75,6 +75,30 @@ get_weather() {
 # TODO: get_daylight? to return daylight hours for that day
 # seems like this depends on us creating a directory for each day (with 1 forecast, and multiple images)
 
+send_warning_email() {
+        declare -a files=(
+                [0]=geocolor.jpg
+        )
+        declare -a warn=()
+        for file in ${files[@]}
+        do
+                # 1. check size of image files
+                SIZE=$(stat --printf="%s" $file)
+                # 2. if less than 1000 then send mail with
+                if [ $SIZE -lt 1000 ]; then
+                        warn+=( "$file (size: $SIZE)" )
+                fi
+        done
+
+	if [ ${#warn[@]} -gt 0 ]; then
+        	sudo sendmail -s devlin.junker@gmail.com <<EOF
+Subject: Warning: Weather Download ($(hostname -f))
+$(date)
+$(printf " - %s\n" "${warn[@]}")
+EOF
+	fi
+}
+
 WEATHER_DIR="$DIR/../../weather"
 
 main() {
@@ -95,8 +119,10 @@ main() {
         
         get_sat_image
         get_weather
+    	send_warning_email
         )
     fi
+
 
     # Add Image Link to imgs/ dir
     if [ ! -d imgs ]; then
